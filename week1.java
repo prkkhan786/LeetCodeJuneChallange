@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * week1
  */
@@ -27,11 +29,11 @@ class ListNode {
 public class week1 {
 
     public static void main(String[] args) {
-        //Node root = new Node(10);
-        //invertTree(root);
-        char [] s = {'a','b','c'};
+        // Node root = new Node(10);
+        // invertTree(root);
+        char[] s = { 'a', 'b', 'c' };
         reverse(s);
-        for (char ch : s){
+        for (char ch : s) {
             System.out.println(ch);
         }
     }
@@ -80,6 +82,28 @@ public class week1 {
             left++;
             right--;
         }
+    }
+
+    public static int twoCitySchedCost(int[][] costs) {
+        int minCost = 0;
+
+        int N = costs.length;
+        for (int i = 0; i < N; i++) {
+            minCost += costs[i][0];
+        }
+
+        int diff[] = new int[N];
+
+        for (int i = 0; i < N; i++) {
+            diff[i] = costs[i][1] - costs[i][0];
+        }
+
+        Arrays.sort(diff);
+
+        for (int i = 0; i < diff.length / 2; i++) {
+            minCost += diff[i];
+        }
+        return minCost;
     }
 
 }
