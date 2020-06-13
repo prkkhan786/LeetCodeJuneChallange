@@ -33,11 +33,15 @@ public class week1 {
     public static void main(String[] args) {
         // Node root = new Node(10);
         // invertTree(root);
-        char[] s = { 'a', 'b', 'c' };
-        reverse(s);
-        for (char ch : s) {
-            System.out.println(ch);
+        // int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
+        // System.out.println(BinarySearch(arr, 909));
+
+        int ar[] = { 2, 0, 2, 1, 1, 0 };
+        sortColorInOnePass(ar);
+        for (int val : ar) {
+            System.out.println(val + " ");
         }
+
     }
 
     public static Node invertTree(Node root) {
@@ -146,5 +150,107 @@ public class week1 {
         }
         return i == s.length();
 
+    }
+
+    public static int BinarySearch(int arr[], int target) {
+
+        int start = 0;
+        int end = arr.length - 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (target == arr[mid]) {
+                return mid;
+            } else if (target > arr[mid]) {
+                start = mid + 1;
+
+            } else {
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    public static int searchInsert(int arr[], int target) {
+
+        int left = 0;
+        int right = arr.length - 1;
+        int pos = 0;
+
+        while (left <= right) {
+
+            int mid = (left + right) / 2;
+            if (target < arr[mid]) {
+                right = mid - 1;
+                pos = mid;
+            } else if (target > arr[mid]) {
+
+                left = mid + 1;
+                pos = mid + 1;
+
+            } else {
+                return mid;
+            }
+
+        }
+        return pos;
+
+    }
+
+    public static void sortColors(int nums[]) {
+
+        int redCount = 0;
+        int whiteCount = 0;
+        int blueCount = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                redCount++;
+
+            } else if (nums[i] == 1) {
+                whiteCount++;
+
+            } else {
+                blueCount++;
+
+            }
+        }
+
+        int count = 0;
+        for (int i = 1; i <= redCount; i++) {
+            nums[count++] = 0;
+        }
+        for (int i = 1; i <= whiteCount; i++) {
+            nums[count++] = 1;
+        }
+        for (int i = 1; i <= blueCount; i++) {
+            nums[count++] = 2;
+        }
+    }
+
+    public static void sortColorInOnePass(int arr[]) {
+        int left = 0;
+        int mid = 0;
+        int right = arr.length - 1;
+
+        while (mid < right) {
+            if (arr[mid] == 0) {
+                swap(arr, left, mid);
+                left++;
+                mid++;
+            } else if (arr[mid] == 1) {
+                mid++;
+
+            } else {
+                swap(arr, mid, right);
+                right--;
+            }
+        }
+
+    }
+
+    public static void swap(int arr[], int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
     }
 }
